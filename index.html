@@ -13,11 +13,7 @@
       --rosa-oscuro: #880e4f;
     }
 
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
 
     html, body {
       height: 100%;
@@ -26,7 +22,6 @@
       background: #1a1a2e;
     }
 
-    /* ===== MARCO DE TELÉFONO ===== */
     .phone-container {
       width: 100%;
       height: 100%;
@@ -37,7 +32,6 @@
       overflow: hidden;
     }
 
-    /* ===== PANTALLAS ===== */
     .screen {
       position: absolute;
       inset: 0;
@@ -49,16 +43,13 @@
       animation: fadeIn 0.6s ease;
     }
 
-    .screen.active {
-      display: flex;
-    }
+    .screen.active { display: flex; }
 
     @keyframes fadeIn {
       from { opacity: 0; transform: scale(0.95); }
       to { opacity: 1; transform: scale(1); }
     }
 
-    /* ===== CORAZONES FLOTANTES ===== */
     .heart-float {
       position: absolute;
       font-size: 22px;
@@ -148,9 +139,7 @@
       box-shadow: 0 6px 28px rgba(194,24,89,0.4);
     }
 
-    .btn:active {
-      transform: translateY(0);
-    }
+    .btn:active { transform: translateY(0); }
 
     .error-box {
       margin-top: 16px;
@@ -172,10 +161,8 @@
       transform: translateY(0);
     }
 
-    /* ===== ANIMACIÓN DE ENTRADA ===== */
-    .welcome-screen {
-      text-align: center;
-    }
+    /* ===== BIENVENIDA ===== */
+    .welcome-screen { text-align: center; }
 
     .welcome-heart-big {
       font-size: 80px;
@@ -208,7 +195,7 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
-    /* ===== CARRUSEL DE FOTOS ===== */
+    /* ===== CARRUSEL ===== */
     .carousel-container {
       width: 100%;
       flex: 1;
@@ -235,15 +222,12 @@
       height: 100%;
       object-fit: cover;
       position: absolute;
-      top: 0;
-      left: 0;
+      top: 0; left: 0;
       opacity: 0;
       transition: opacity 0.6s ease;
     }
 
-    .photo-frame img.active {
-      opacity: 1;
-    }
+    .photo-frame img.active { opacity: 1; }
 
     .carousel-dots {
       display: flex;
@@ -300,7 +284,6 @@
       margin-bottom: 24px;
     }
 
-    /* ===== BOTÓN LEER ===== */
     .read-btn-container {
       margin-top: 28px;
       animation: slideUp 0.8s ease 0.2s both;
@@ -337,10 +320,7 @@
       z-index: 2;
     }
 
-    .letter-paper::-webkit-scrollbar {
-      width: 4px;
-    }
-
+    .letter-paper::-webkit-scrollbar { width: 4px; }
     .letter-paper::-webkit-scrollbar-thumb {
       background: var(--rosa-medio);
       border-radius: 4px;
@@ -361,9 +341,7 @@
       text-align: center;
     }
 
-    .letter-body p {
-      margin-bottom: 16px;
-    }
+    .letter-body p { margin-bottom: 16px; }
 
     .letter-signature {
       font-family: 'Great Vibes', cursive;
@@ -373,7 +351,6 @@
       margin-top: 24px;
     }
 
-    /* Animaciones laterales */
     .side-anim {
       position: absolute;
       font-size: 28px;
@@ -381,15 +358,8 @@
       animation: sideFloat 3s ease-in-out infinite;
     }
 
-    .side-anim.left {
-      left: 8px;
-      animation-name: sideFloatLeft;
-    }
-
-    .side-anim.right {
-      right: 8px;
-      animation-name: sideFloatRight;
-    }
+    .side-anim.left { left: 8px; animation-name: sideFloatLeft; }
+    .side-anim.right { right: 8px; animation-name: sideFloatRight; }
 
     @keyframes sideFloatLeft {
       0%, 100% { opacity: 0; transform: translateX(-20px) translateY(0); }
@@ -410,11 +380,9 @@
       border: 2px solid var(--rosa-medio);
     }
 
-    .btn-back:hover {
-      background: var(--rosa-claro);
-    }
+    .btn-back:hover { background: var(--rosa-claro); }
 
- /* ===== CONTROLES DE MÚSICA ===== */
+    /* ===== CONTROLES DE MÚSICA ===== */
     .music-control {
       position: absolute;
       top: 16px;
@@ -488,18 +456,33 @@
         border: 8px solid #2a2a4a;
       }
     }
+
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      20% { transform: translateX(-8px); }
+      40% { transform: translateX(8px); }
+      60% { transform: translateX(-4px); }
+      80% { transform: translateX(4px); }
+    }
   </style>
+<base target="_blank">
 </head>
 <body>
 
 <div class="phone-container" id="app">
-  <!-- Corazones flotantes de fondo (se generan con JS) -->
+  <!-- Corazones flotantes -->
   <div id="hearts-container"></div>
+
+  <!-- Barra de progreso de música -->
+  <div class="music-bar" id="music-bar"><div class="music-bar-fill" id="music-bar-fill"></div></div>
+
+  <!-- Botón mute/unmute -->
+  <div class="music-control hidden" id="music-btn" onclick="toggleMusic()">🔊</div>
 
   <!-- ===== PANTALLA 1: LOGIN ===== -->
   <div class="screen active" id="screen-login">
     <div class="login-heart">💖</div>
-    <div class="login-title">Nuestro Mesversario</div>
+    <div class="login-title">Nuestro Aniversario</div>
 
     <div class="input-group">
       <label>Tu nombre</label>
@@ -516,7 +499,7 @@
     <div class="error-box" id="error-box">
       💔 Contraseña incorrecta<br>
       <strong>Prueba con nuestra fecha de aniversario</strong><br>
-      <span style="font-size:12px;opacity:0.8;">(Formato: DDMMYYYY)</span>
+      <span style="font-size:12px;opacity:0.8;">(Formato: DDMMAAAA)</span>
     </div>
   </div>
 
@@ -532,7 +515,6 @@
     <div class="carousel-title">Nuestros Momentos</div>
     <div class="carousel-container">
       <div class="photo-frame" id="photo-frame">
-        <!-- REEMPLAZA ESTAS URLs CON TUS FOTOS DE CLOUDINARY -->
         <img src="https://images.unsplash.com/photo-1518199266791-5375a83190b7?w=400&h=500&fit=crop" class="active" alt="Foto 1">
         <img src="https://images.unsplash.com/photo-1529333166437-7750a6dd5a70?w=400&h=500&fit=crop" alt="Foto 2">
         <img src="https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?w=400&h=500&fit=crop" alt="Foto 3">
@@ -553,7 +535,6 @@
   <!-- ===== PANTALLA 4: CARTA ===== -->
   <div class="screen" id="screen-letter">
     <div class="letter-container">
-      <!-- Animaciones laterales -->
       <div class="side-anim left" style="top:15%; animation-delay:0s;">💕</div>
       <div class="side-anim left" style="top:40%; animation-delay:1s;">💖</div>
       <div class="side-anim left" style="top:65%; animation-delay:2s;">💗</div>
@@ -586,13 +567,13 @@
 
 <script>
   // ==================== CONFIGURACIÓN ====================
-  // REEMPLAZA ESTO con tu fecha de aniversario real (formato: DDMMAAAA)
-  const FECHA_ANIVERSARIO = '26062025'; // Ejemplo: 14 de febrero de 2020
+  // REEMPLAZA con tu fecha de aniversario (formato: DDMMAAAA)
+  const FECHA_ANIVERSARIO = '14022020';
 
   // REEMPLAZA con la URL de tu canción (Cloudinary, Google Drive directo, etc.)
   const CANCION_URL = 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3';
 
-  // REEMPLAZA ESTAS URLs con tus fotos subidas a Cloudinary
+  // REEMPLAZA con tus fotos de Cloudinary
   const FOTOS = [
     'https://images.unsplash.com/photo-1518199266791-5375a83190b7?w=400&h=500&fit=crop',
     'https://images.unsplash.com/photo-1529333166437-7750a6dd5a70?w=400&h=500&fit=crop',
@@ -604,6 +585,14 @@
 
   let currentPhoto = 0;
   let carouselInterval;
+  let musicPlaying = false;
+  const audio = document.getElementById('bg-music');
+  const musicBtn = document.getElementById('music-btn');
+  const musicBarFill = document.getElementById('music-bar-fill');
+
+  // Configurar audio
+  audio.src = CANCION_URL;
+  audio.volume = 0.6;
 
   // Generar corazones flotantes
   function createFloatingHearts() {
@@ -627,7 +616,6 @@
     document.getElementById(id).classList.add('active');
   }
 
-  
   // Reproducir música
   function playMusic() {
     audio.play().then(() => {
@@ -701,52 +689,32 @@
     }
 
     if (pass === FECHA_ANIVERSARIO) {
-      // Éxito
       errorBox.classList.remove('show');
       document.getElementById('welcome-name').textContent = `Bienvenida, ${name} 💕`;
-      showScreen('screen-welcome');
-      startCarouselDots();
 
-  // 🎵 REPRODUCIR MÚSICA AL HACER CLICK
+      // 🎵 REPRODUCIR MÚSICA AL HACER CLICK
       playMusic();
 
-  // 🎊 LANZAR CONFETI
+      // 🎊 LANZAR CONFETI
       launchConfetti();
 
       showScreen('screen-welcome');
       startCarouselDots();
 
-      // Ir al carrusel después de 3 segundos
       setTimeout(() => {
         showScreen('screen-carousel');
         startCarousel();
       }, 3500);
     } else {
-      // Error
       errorBox.innerHTML = '💔 Contraseña incorrecta<br><strong>Prueba con nuestra fecha de aniversario</strong><br><span style="font-size:12px;opacity:0.8;">(Formato: DDMMAAAA)</span>';
       errorBox.classList.add('show');
 
-      // Animación de shake
       const btn = document.querySelector('#screen-login .btn');
       btn.style.animation = 'none';
-      setTimeout(() => {
-        btn.style.animation = 'shake 0.4s ease';
-      }, 10);
+      btn.offsetHeight; // trigger reflow
+      btn.style.animation = 'shake 0.4s ease';
     }
   }
-
-  // Shake animation
-  const style = document.createElement('style');
-  style.textContent = `
-    @keyframes shake {
-      0%, 100% { transform: translateX(0); }
-      20% { transform: translateX(-8px); }
-      40% { transform: translateX(8px); }
-      60% { transform: translateX(-4px); }
-      80% { transform: translateX(4px); }
-    }
-  `;
-  document.head.appendChild(style);
 
   // Carrusel
   function updatePhoto() {
@@ -804,7 +772,6 @@
     startCarouselTimer();
   }
 
-  // Mostrar carta
   function showLetter() {
     showScreen('screen-letter');
     clearInterval(carouselInterval);
